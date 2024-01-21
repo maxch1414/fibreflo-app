@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { HelperText, TextInput, Button, Text } from "react-native-paper";
 import { LoadingIndicator } from "../components/Loading";
 import DropDownPicker from "react-native-dropdown-picker";
+import { wessexRateCard } from "../lib/config/ratecards/wessex";
 
 export default function SafeCreateTimesheetScreen(props: any) {
   const navigation = useNavigation();
@@ -39,13 +40,18 @@ type EngineerItem = {
 
 function CreateTimesheetScreen({
   navigation,
-}: RootStackScreenProps<"CreateTimesheet">) {
+}: Readonly<RootStackScreenProps<"CreateTimesheet">>) {
   const { getToken, signOut } = useAuth();
   const { user } = useUser();
   const [loading, setLoading] = React.useState(false);
   const [formLoading, setFormLoading] = React.useState(false);
   const [engineersValue, setEngineersValue] = React.useState(null);
+  // const [workProvider, setWorkProvider] = React.useState(null);
+  const [workItem, setWorkItem] = React.useState(null);
+
   const [open, setOpen] = React.useState(false);
+  const [workItemIsOpen, setWorkItemIsOpen] = React.useState(false);
+
   const [items, setItems] = React.useState<EngineerItem[]>([]);
 
   const [sessionToken, setSessionToken] = React.useState("");
@@ -160,8 +166,6 @@ function CreateTimesheetScreen({
 
   if (loading) return <LoadingIndicator />;
 
-  console.log(sessionToken);
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View style={styles.container}>
@@ -232,7 +236,7 @@ function CreateTimesheetScreen({
           {errors.order_num?.message}
         </HelperText>
 
-        <Controller
+        {/* <Controller
           control={control}
           rules={{
             required: "Please enter a work item.",
@@ -249,6 +253,20 @@ function CreateTimesheetScreen({
             />
           )}
           name="work_item"
+        /> */}
+        <DropDownPicker
+          open={workItemIsOpen}
+          value={workItem}
+          items={wessexRateCard}
+          setOpen={setWorkItemIsOpen}
+          setValue={setWorkItem}
+          setItems={setItems}
+          multiple={true}
+          min={1}
+          style={styles.engineerPicker}
+          placeholder="Select Work Item"
+          searchPlaceholder="Search Work Items"
+          searchable={true}
         />
         <HelperText
           type="error"

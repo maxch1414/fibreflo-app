@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "fibreflo-app",
-    "slug": "fibreflo-app",
+    "name": "Fibre Flo",
+    "slug": "fibre-flo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -37,8 +37,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "7834c8cf-7e81-4d0b-badd-a5b2549ca378"
+        "projectId": "ac14e594-f4a4-437c-b9a0-f8d39404eae1"
       }
-    }
+    },
+    "owner": "maxc14"
   }
 }

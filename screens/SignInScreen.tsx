@@ -66,6 +66,7 @@ export default function SignInScreen({ navigation }: any) {
               placeholder="Email Address"
               onBlur={onBlur}
               onChangeText={onChange}
+              placeholderTextColor="black"
               value={value}
               style={styles.textInput}
             />
@@ -89,6 +90,7 @@ export default function SignInScreen({ navigation }: any) {
               placeholder="Password"
               onBlur={onBlur}
               onChangeText={onChange}
+              placeholderTextColor="black"
               value={value}
               style={styles.textInput}
             />
@@ -138,6 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
+    color: "#000000",
   },
 
   primaryButton: {
