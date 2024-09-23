@@ -9,9 +9,12 @@ import {
 import { useSignIn } from "@clerk/clerk-expo";
 import { log } from "../logger";
 import { Controller, useForm } from "react-hook-form";
+import { Feather } from '@expo/vector-icons';
 
 export default function SignInScreen({ navigation }: any) {
-  const { signIn, setSession, isLoaded } = useSignIn();
+  const { signIn, setActive, isLoaded } = useSignIn();
+  const [showPassword, setShowPassword] = React.useState(false);
+
   const {
     control,
     handleSubmit,
@@ -41,11 +44,15 @@ export default function SignInScreen({ navigation }: any) {
         password,
       });
 
-      await setSession(completeSignIn.createdSessionId);
+      await setActive({ session: completeSignIn.createdSessionId });
     } catch (err: any) {
       log("Error:> " + err?.status || "");
       log("Error:> " + err?.errors ? JSON.stringify(err.errors) : err);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev: any) => !prev);
   };
 
   return (
@@ -69,6 +76,7 @@ export default function SignInScreen({ navigation }: any) {
               placeholderTextColor="black"
               value={value}
               style={styles.textInput}
+              keyboardType="email-address"
             />
           )}
           name="emailAddress"
@@ -85,15 +93,20 @@ export default function SignInScreen({ navigation }: any) {
             min: 10,
           }}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
-              autoCapitalize="none"
-              placeholder="Password"
-              onBlur={onBlur}
-              onChangeText={onChange}
-              placeholderTextColor="black"
-              value={value}
-              style={styles.textInput}
-            />
+              <>
+                <TextInput
+                  autoCapitalize="none"
+                  placeholder="Password"
+                  placeholderTextColor="black"
+                  value={value}
+                  onChangeText={onChange}
+                  secureTextEntry={!showPassword}
+                  style={styles.textInput} 
+                />
+                <TouchableOpacity onPress={togglePasswordVisibility} style={styles.eyeIconContainer}>
+                  <Feather name={showPassword ? "eye" : "eye-off"} size={24} color="black" />
+                </TouchableOpacity>
+              </>
           )}
           name="password"
         />
@@ -119,6 +132,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     padding: 20,
+  },
+
+  eyeIconContainer: {
+    position: "absolute",
+    right: 10,
+    top:10
   },
 
   errorMessage: {
@@ -149,9 +168,9 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
-    backgroundColor: "#000",
-    color: "#ffffff",
+    marginTop: 10,
+    color: "#ffffff", 
+    backgroundColor: "#253C78", 
   },
 
   primaryButtonText: {

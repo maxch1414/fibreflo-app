@@ -25,7 +25,12 @@
     "noEmit": true,
     "noEmitHelpers": true
   },
-  "exclude": ["App.tsx", "App.test.tsx", "build", "node_modules"],
+  "exclude": [
+    "App.tsx",
+    "App.test.tsx",
+    "build",
+    "node_modules"
+  ],
   "compileOnSave": false,
   "extends": "expo/tsconfig.base"
 }

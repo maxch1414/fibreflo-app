@@ -42,9 +42,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     padding: 10,
+    backgroundColor: "#253C78", // Navy background color
   },
   button: {
     marginBottom: 20,
-    color: "#000000",
+    color: "#000000", // White text color
+    backgroundColor: "#ffffff", // Navy button color
+    marginHorizontal: 5, // Add some spacing between buttons
   },
 });
